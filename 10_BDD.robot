@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation    BDD
 Metadata         ID                           10
-Metadata         Automation priority          null
+Metadata         Automation priority          1
 Metadata         Test case importance         Low
 Resource         squash_resources.resource
 Test Setup       Test Setup
@@ -13,9 +13,9 @@ BDD
     [Documentation]    BDD
 
     Given calculator has been cleared
-    When user types "1 + 1"
+    When user types "1 + 3"
     And user pushes equals
-    Then result is "2"
+    Then result is "4"
 
 
 *** Keywords ***
