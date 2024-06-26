@@ -1,4 +1,4 @@
-Feature: Account Holder withdraws cash
+Feature: test git
  
 Scenario: Account has sufficient funds
     Given The account balance is $100
