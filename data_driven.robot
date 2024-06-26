@@ -12,6 +12,7 @@ Documentation     Example test cases using the data-driven testing approach.
 ...               failures look like.
 Test Template     Calculate
 Library           CalculatorLibrary.py
+Library squash_tf.TFParamService
 
 *** Test Cases ***    Expression    Expected
 Addition              12 + 2 + 2    16
