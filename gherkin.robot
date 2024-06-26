@@ -11,6 +11,7 @@ Documentation     Example test case using the gherkin syntax.
 ...               tests act as examples that need to be easily understood also
 ...               by the business people.
 Library           CalculatorLibrary.py
+Library squash_tf.TFParamService
 
 *** Test Cases ***
 Addition
