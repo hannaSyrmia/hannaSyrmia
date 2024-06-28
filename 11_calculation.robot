@@ -1,48 +1,34 @@
 *** Settings ***
-Documentation    calculation
-Metadata         ID                           11
-Metadata         Reference                    gherkin.robot
-Metadata         Automation priority          null
-Metadata         Test case importance         Low
-Resource         squash_resources.resource
-Test Setup       Test Setup
-Test Teardown    Test Teardown
-
+Documentation     Example test case using the gherkin syntax.
+...
+...               This test has a workflow similar to the keyword-driven
+...               examples. The difference is that the keywords use higher
+...               abstraction level and their arguments are embedded into
+...               the keyword names.
+...
+...               This kind of _gherkin_ syntax has been made popular by
+...               [http://cukes.info|Cucumber]. It works well especially when
+...               tests act as examples that need to be easily understood also
+...               by the business people.
+Library           CalculatorLibrary.py
+Library squash_tf.TFParamService
 
 *** Test Cases ***
-calculation
-    [Documentation]    calculation
-
-    Given Test
-
+Addition
+    Given calculator has been cleared
+    When user types "1 + 1"
+    and user pushes equals
+    Then result is "2"
 
 *** Keywords ***
-Test Setup
-    [Documentation]    test setup
-    ...                You can define the ${TEST_SETUP} variable with a keyword for setting up all your tests.
-    ...                You can define the ${TEST_11_SETUP} variable with a keyword for setting up this specific test.
-    ...                If both are defined, ${TEST_11_SETUP} will be run after ${TEST_SETUP}.
+Calculator has been cleared
+    Push button    C
 
-    ${TEST_SETUP_VALUE} =       Get Variable Value    ${TEST_SETUP}
-    ${TEST_11_SETUP_VALUE} =    Get Variable Value    ${TEST_11_SETUP}
-    IF    $TEST_SETUP_VALUE is not None
-        Run Keyword    ${TEST_SETUP}
-    END
-    IF    $TEST_11_SETUP_VALUE is not None
-        Run Keyword    ${TEST_11_SETUP}
-    END
+User types "${expression}"
+    Push buttons    ${expression}
 
-Test Teardown
-    [Documentation]    test teardown
-    ...                You can define the ${TEST_TEARDOWN} variable with a keyword for tearing down all your tests.
-    ...                You can define the ${TEST_11_TEARDOWN} variable with a keyword for tearing down this specific test.
-    ...                If both are defined, ${TEST_TEARDOWN} will be run after ${TEST_11_TEARDOWN}.
+User pushes equals
+    Push button    =
 
-    ${TEST_11_TEARDOWN_VALUE} =    Get Variable Value    ${TEST_11_TEARDOWN}
-    ${TEST_TEARDOWN_VALUE} =       Get Variable Value    ${TEST_TEARDOWN}
-    IF    $TEST_11_TEARDOWN_VALUE is not None
-        Run Keyword    ${TEST_11_TEARDOWN}
-    END
-    IF    $TEST_TEARDOWN_VALUE is not None
-        Run Keyword    ${TEST_TEARDOWN}
-    END
+Result is "${result}"
+    Result should be    ${result}
