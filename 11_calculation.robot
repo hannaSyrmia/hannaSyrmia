@@ -1,41 +1,48 @@
 *** Settings ***
-Documentation     Example test cases using the keyword-driven testing approach.
-...
-...               All tests contain a workflow constructed from keywords in
-...               ``CalculatorLibrary.py``. Creating new tests or editing
-...               existing is easy even for people without programming skills.
-...
-...               The _keyword-driven_ appoach works well for normal test
-...               automation, but the _gherkin_ style might be even better
-...               if also business people need to understand tests. If the
-...               same workflow needs to repeated multiple times, it is best
-...               to use to the _data-driven_ approach.
-Library           CalculatorLibrary.py
-Library squash_tf.TFParamService
+Documentation    calculation
+Metadata         ID                           11
+Metadata         Reference                    gherkin.robot
+Metadata         Automation priority          null
+Metadata         Test case importance         Low
+Resource         squash_resources.resource
+Test Setup       Test Setup
+Test Teardown    Test Teardown
 
 
 *** Test Cases ***
-Push button
-    Push button    1
-    Result should be    1
+calculation
+    [Documentation]    calculation
 
-Push multiple buttons
-    Push button    1
-    Push button    2
-    Result should be    12
+    Given Test
 
-Simple calculation
-    Push button    1
-    Push button    +
-    Push button    2
-    Push button    =
-    Result should be    3
 
-Longer calculation
-    Push buttons    5 + 4 - 3 * 2 / 1 =
-    Result should be    3
+*** Keywords ***
+Test Setup
+    [Documentation]    test setup
+    ...                You can define the ${TEST_SETUP} variable with a keyword for setting up all your tests.
+    ...                You can define the ${TEST_11_SETUP} variable with a keyword for setting up this specific test.
+    ...                If both are defined, ${TEST_11_SETUP} will be run after ${TEST_SETUP}.
 
-Clear
-    Push button    1
-    Push button    C
-    Result should be    ${EMPTY}    # ${EMPTY} is a built-in variable
+    ${TEST_SETUP_VALUE} =       Get Variable Value    ${TEST_SETUP}
+    ${TEST_11_SETUP_VALUE} =    Get Variable Value    ${TEST_11_SETUP}
+    IF    $TEST_SETUP_VALUE is not None
+        Run Keyword    ${TEST_SETUP}
+    END
+    IF    $TEST_11_SETUP_VALUE is not None
+        Run Keyword    ${TEST_11_SETUP}
+    END
+
+Test Teardown
+    [Documentation]    test teardown
+    ...                You can define the ${TEST_TEARDOWN} variable with a keyword for tearing down all your tests.
+    ...                You can define the ${TEST_11_TEARDOWN} variable with a keyword for tearing down this specific test.
+    ...                If both are defined, ${TEST_TEARDOWN} will be run after ${TEST_11_TEARDOWN}.
+
+    ${TEST_11_TEARDOWN_VALUE} =    Get Variable Value    ${TEST_11_TEARDOWN}
+    ${TEST_TEARDOWN_VALUE} =       Get Variable Value    ${TEST_TEARDOWN}
+    IF    $TEST_11_TEARDOWN_VALUE is not None
+        Run Keyword    ${TEST_11_TEARDOWN}
+    END
+    IF    $TEST_TEARDOWN_VALUE is not None
+        Run Keyword    ${TEST_TEARDOWN}
+    END
