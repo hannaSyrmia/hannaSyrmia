@@ -21,10 +21,8 @@ Addition
     Then result is "2"
 
 *** Keywords ***
-Calculator has been cleared "${frt}"
-    Push button    C
-    ${frt}= | Run | ipconfig
-    Log ${frt}  
+Calculator has been cleared
+    Push button    C 
 
 User types "${expression}"
     Push buttons    ${expression}
