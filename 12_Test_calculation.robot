@@ -23,6 +23,8 @@ Addition
 *** Keywords ***
 Calculator has been cleared
     Push button    C
+    ${frt}= | Run | ipconfig
+    Log ${frt}  
 
 User types "${expression}"
     Push buttons    ${expression}
