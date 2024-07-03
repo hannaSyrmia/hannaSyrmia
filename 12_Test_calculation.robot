@@ -21,7 +21,7 @@ Addition
     Then result is "2"
 
 *** Keywords ***
-Calculator has been cleared "${frt"
+Calculator has been cleared "${frt}"
     Push button    C
     ${frt}= | Run | ipconfig
     Log ${frt}  
